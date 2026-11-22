@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="Definitions_tasks"
+             targetNamespace="http://flowable.org/bpmn">
+  <process id="tasks" isExecutable="true">
+    <scriptTask id="groovy" scriptFormat="groovy" flowable:resultVariable="sum" flowable:autoStoreVariables="false"
+                flowable:doNotIncludeVariables="true" flowable:skipExpression="${skipScript}">
+      <script>a + b</script>
+    </scriptTask>
+    <scriptTask id="legacyResult" scriptFormat="javascript" flowable:resultVariableName="total" flowable:autoStoreVariables="true">
+      <script>execution.getVariable('x') * 2</script>
+    </scriptTask>
+    <businessRuleTask id="rules" flowable:ruleVariablesInput="order,customer" flowable:rules="discountRule,shippingRule"
+                      flowable:resultVariable="ruleResult" flowable:exclude="true" />
+    <businessRuleTask id="customRules" flowable:class="org.example.RuleEngine" />
+    <sendTask id="sendMail" flowable:type="mail">
+      <extensionElements>
+        <flowable:field name="to" stringValue="team@example.org" />
+        <flowable:field name="subject" expression="${subject}" />
+      </extensionElements>
+    </sendTask>
+    <sendTask id="sendCamel" flowable:type="camel">
+      <extensionElements>
+        <flowable:field name="camelContext" stringValue="ordersContext" />
+      </extensionElements>
+    </sendTask>
+    <receiveTask id="waitSignal" flowable:skipExpression="${skipWait}" />
+    <receiveTask id="waitEvent">
+      <extensionElements>
+        <flowable:eventType>orderShipped</flowable:eventType>
+        <flowable:eventOutParameter source="trackingNumber" target="tracking" />
+      </extensionElements>
+    </receiveTask>
+  </process>
+</definitions>
