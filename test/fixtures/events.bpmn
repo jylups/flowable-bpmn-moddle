@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="Definitions_events"
+             targetNamespace="http://flowable.org/bpmn">
+  <signal id="alert" name="alert" />
+  <message id="orderMessage" name="order" />
+  <error id="paymentError" errorCode="payment" />
+  <process id="events" isExecutable="true">
+    <startEvent id="orderReceived">
+      <extensionElements>
+        <flowable:eventType>orderCreated</flowable:eventType>
+        <flowable:eventName>Order created</flowable:eventName>
+        <flowable:eventCorrelationParameter name="customerId" value="${customerId}" type="string" />
+        <flowable:eventOutParameter source="total" target="orderTotal" sourceType="double" transient="false" />
+        <flowable:startEventCorrelationConfiguration>storeAsUniqueReferenceId</flowable:startEventCorrelationConfiguration>
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="flow1" sourceRef="orderReceived" targetRef="work" />
+    <userTask id="work" name="Work" />
+    <boundaryEvent id="reminder" attachedToRef="work" cancelActivity="false">
+      <timerEventDefinition flowable:businessCalendarName="workdays">
+        <timeCycle xsi:type="tFormalExpression" flowable:endDate="2026-12-31T23:59:59">R3/PT1H</timeCycle>
+      </timerEventDefinition>
+    </boundaryEvent>
+    <boundaryEvent id="watch" attachedToRef="work" cancelActivity="false">
+      <extensionElements>
+        <flowable:variableListenerEventDefinition variableName="status" variableChangeType="update-create" />
+      </extensionElements>
+    </boundaryEvent>
+    <boundaryEvent id="failed" attachedToRef="work">
+      <errorEventDefinition errorRef="paymentError" flowable:errorVariableName="paymentFailure"
+                            flowable:errorVariableTransient="true" flowable:errorVariableLocalScope="false" />
+    </boundaryEvent>
+    <sequenceFlow id="flow2" sourceRef="work" targetRef="waitMessage" />
+    <intermediateCatchEvent id="waitMessage">
+      <messageEventDefinition messageRef="orderMessage" flowable:messageExpression="${'order-' + orderId}" />
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow3" sourceRef="waitMessage" targetRef="raise" />
+    <intermediateThrowEvent id="raise">
+      <signalEventDefinition signalRef="alert" flowable:signalExpression="${alertName}" flowable:async="true" />
+    </intermediateThrowEvent>
+    <sequenceFlow id="flow4" sourceRef="raise" targetRef="stop" />
+    <endEvent id="stop">
+      <terminateEventDefinition flowable:terminateAll="true" flowable:terminateMultiInstance="false" />
+    </endEvent>
+  </process>
+</definitions>

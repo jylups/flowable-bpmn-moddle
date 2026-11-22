@@ -1439,6 +1439,205 @@
           "type": "String"
         }
       ]
+    },
+    {
+      "name": "TimerEventDefinition",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:TimerEventDefinition"
+      ],
+      "properties": [
+        {
+          "name": "businessCalendarName",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "TimeCycle",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:Expression"
+      ],
+      "properties": [
+        {
+          "name": "endDate",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "SignalEventDefinition",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:SignalEventDefinition"
+      ],
+      "properties": [
+        {
+          "name": "signalExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "async",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "MessageEventDefinition",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:MessageEventDefinition"
+      ],
+      "properties": [
+        {
+          "name": "messageExpression",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "ErrorEventDefinition",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:ErrorEventDefinition"
+      ],
+      "properties": [
+        {
+          "name": "errorVariableName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "errorVariableTransient",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "errorVariableLocalScope",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "TerminateEventDefinition",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:TerminateEventDefinition"
+      ],
+      "properties": [
+        {
+          "name": "terminateAll",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "terminateMultiInstance",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "VariableListenerEventDefinition",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:StartEvent",
+          "bpmn:BoundaryEvent",
+          "bpmn:IntermediateCatchEvent"
+        ]
+      },
+      "properties": [
+        {
+          "name": "variableName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "variableChangeType",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "EventName",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:StartEvent",
+          "bpmn:BoundaryEvent",
+          "bpmn:IntermediateCatchEvent",
+          "bpmn:ReceiveTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "EventCorrelationParameter",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:StartEvent",
+          "bpmn:BoundaryEvent",
+          "bpmn:IntermediateCatchEvent",
+          "bpmn:ReceiveTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "value",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "type",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "StartEventCorrelationConfiguration",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:StartEvent"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
     }
   ],
   "enumerations": []
