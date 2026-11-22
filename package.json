@@ -5,11 +5,13 @@
   "type": "module",
   "exports": {
     ".": "./index.js",
+    "./lib/migrate.js": "./lib/migrate.js",
     "./resources/flowable.json": "./resources/flowable.json",
     "./package.json": "./package.json"
   },
   "files": [
     "index.js",
+    "lib",
     "resources"
   ],
   "scripts": {

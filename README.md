@@ -20,6 +20,24 @@ const modeler = new BpmnModeler({
 
 The descriptor is also available as `@jylups/flowable-bpmn-moddle/resources/flowable.json`.
 
+## Activiti namespace
+
+Flowable also reads its extensions in the Activiti namespace (`http://activiti.org/bpmn`). The descriptor registers only the Flowable namespace, so import such models through the migration helpers to get typed content that is written back as `flowable:`:
+
+```js
+import { migrateActivitiXML, useFlowablePrefix } from '@jylups/flowable-bpmn-moddle';
+
+const { rootElement } = await moddle.fromXML(migrateActivitiXML(xml), 'bpmn:Definitions');
+
+// ... edit ...
+
+const { xml: saved } = await moddle.toXML(useFlowablePrefix(rootElement));
+```
+
+`migrateActivitiXML` only rewrites `xmlns` declarations. It also fixes models that bind the `flowable` prefix to the Activiti namespace, which otherwise fail to export.
+
+Attributes Flowable reads without a namespace (listener, field, in/out and similar sub-attributes, the sequence flow `skipExpression`) are read whether or not they carry a prefix.
+
 ## Covered extensions
 
 | Area | Extensions |
