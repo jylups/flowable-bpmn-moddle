@@ -6,6 +6,7 @@
   "exports": {
     ".": "./index.js",
     "./lib/migrate.js": "./lib/migrate.js",
+    "./lib/unknown.js": "./lib/unknown.js",
     "./resources/flowable.json": "./resources/flowable.json",
     "./package.json": "./package.json"
   },

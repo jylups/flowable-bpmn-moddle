@@ -4,6 +4,9 @@ All notable changes to this package are documented here.
 
 ## Unreleased
 
+* `FEAT`: add `registerUnknownFlowableElements` to keep `flowable:*` elements the descriptor does not define, and type the Flowable Work/Design elements `work-form-field-validation`, `task-candidates-type`, `static-process-key` and `translation` ([jylups/bpmn-js-env#65](https://github.com/jylups/bpmn-js-env/issues/65))
+* `FEAT`: keep `itemSubjectRef` as text, so Flowable item types such as `xsd:int` survive load and save ([jylups/bpmn-js-env#62](https://github.com/jylups/bpmn-js-env/issues/62))
+
 ## 0.1.0-next.0
 
 First prerelease with the Flowable extensions the open-source engine reads (see the [coverage matrix](https://github.com/jylups/bpmn-js-env/blob/main/docs/coverage.md)).

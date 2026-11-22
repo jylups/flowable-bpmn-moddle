@@ -1666,6 +1666,104 @@
           "type": "String"
         }
       ]
+    },
+    {
+      "name": "Work-form-field-validation",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:StartEvent",
+          "bpmn:UserTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Task-candidates-type",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:UserTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Static-process-key",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:CallActivity"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Translation",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:BaseElement"
+        ]
+      },
+      "properties": [
+        {
+          "name": "key",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "locale",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "ItemAwareElement",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:ItemAwareElement"
+      ],
+      "properties": [
+        {
+          "name": "bpmn:itemSubjectRef",
+          "isAttr": true,
+          "type": "String",
+          "replaces": "bpmn:ItemAwareElement#itemSubjectRef"
+        }
+      ]
     }
   ],
   "enumerations": []
