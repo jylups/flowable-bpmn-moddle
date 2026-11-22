@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="Definitions_dataSignalsFlows"
+             targetNamespace="http://flowable.org/bpmn">
+  <signal id="globalSignal" name="global" flowable:scope="global" />
+  <signal id="localSignal" name="local" flowable:scope="processInstance" />
+  <process id="dataSignalsFlows" isExecutable="true">
+    <dataObject id="threshold" name="threshold">
+      <extensionElements>
+        <flowable:value>10</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <startEvent id="start" />
+    <sequenceFlow id="toCheck" sourceRef="start" targetRef="check" flowable:skipExpression="${skipCheck}" />
+    <exclusiveGateway id="check" />
+    <sequenceFlow id="toEnd" sourceRef="check" targetRef="end" />
+    <endEvent id="end" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="dataSignalsFlows">
+      <bpmndi:BPMNShape id="start_di" bpmnElement="start">
+        <dc:Bounds x="100" y="100" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="check_di" bpmnElement="check" isMarkerVisible="true">
+        <dc:Bounds x="200" y="93" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_di" bpmnElement="end">
+        <dc:Bounds x="320" y="100" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="toCheck_di" bpmnElement="toCheck" flowable:sourceDockerX="18.0" flowable:sourceDockerY="18.0"
+                       flowable:targetDockerX="25.0" flowable:targetDockerY="25.0">
+        <di:waypoint x="136" y="118" />
+        <di:waypoint x="200" y="118" />
+        <bpmndi:BPMNLabel flowable:rotation="90.0">
+          <dc:Bounds x="150" y="90" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="toEnd_di" bpmnElement="toEnd">
+        <di:waypoint x="250" y="118" />
+        <di:waypoint x="320" y="118" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
