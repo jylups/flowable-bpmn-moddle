@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="Definitions_userTask"
+             targetNamespace="http://flowable.org/bpmn">
+  <process id="userTasks" isExecutable="true">
+    <startEvent id="start" />
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="review" />
+    <userTask id="review" name="Review"
+              flowable:assignee="${initiator}" flowable:owner="kermit"
+              flowable:candidateUsers="gonzo,fozzie" flowable:candidateGroups="management,sales"
+              flowable:dueDate="${dueDate}" flowable:businessCalendarName="workdays"
+              flowable:category="approvals" flowable:priority="${priority}"
+              flowable:formKey="reviewForm" flowable:formFieldValidation="false" flowable:sameDeployment="true"
+              flowable:extensionId="review-v2" flowable:skipExpression="${skipReview}"
+              flowable:taskIdVariableName="reviewTaskId" flowable:taskCompleterVariableName="reviewer">
+      <extensionElements>
+        <flowable:taskListener event="create" class="org.example.Notify" />
+        <flowable:formProperty id="approved" name="Approved" type="boolean" required="true" />
+        <flowable:customResource name="businessAdministrator">
+          <resourceAssignmentExpression>
+            <formalExpression>user(admin), group(auditors)</formalExpression>
+          </resourceAssignmentExpression>
+        </flowable:customResource>
+        <flowable:customResource name="watcher">
+          <resourceAssignmentExpression>
+            <formalExpression>group(observers)</formalExpression>
+          </resourceAssignmentExpression>
+        </flowable:customResource>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="review" targetRef="handover" />
+    <userTask id="handover" name="Hand over" flowable:dueDate="P2DT4H" flowable:priority="80">
+      <humanPerformer>
+        <resourceAssignmentExpression>
+          <formalExpression>kermit</formalExpression>
+        </resourceAssignmentExpression>
+      </humanPerformer>
+    </userTask>
+    <sequenceFlow id="flow3" sourceRef="handover" targetRef="end" />
+    <endEvent id="end" />
+  </process>
+</definitions>
