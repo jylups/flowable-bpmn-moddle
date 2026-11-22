@@ -1,0 +1,50 @@
+{
+  "name": "@jylups/flowable-bpmn-moddle",
+  "version": "0.0.0",
+  "description": "Flowable moddle extensions for BPMN 2.0",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./resources/flowable.json": "./resources/flowable.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "resources"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "test": "vitest run",
+    "dev": "vitest",
+    "all": "npm run lint && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jylups/flowable-bpmn-moddle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jylups/bpmn-js-env/issues"
+  },
+  "homepage": "https://github.com/jylups/flowable-bpmn-moddle#readme",
+  "keywords": [
+    "bpmn",
+    "moddle",
+    "flowable",
+    "bpmn-moddle",
+    "bpmn-js"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "bpmn-moddle": "^10.3.1",
+    "eslint": "^10.15.0",
+    "globals": "^17.14.0",
+    "vitest": "^5.1.1"
+  }
+}
