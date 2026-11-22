@@ -30,6 +30,8 @@ The descriptor is also available as `@jylups/flowable-bpmn-moddle/resources/flow
 | Process | `candidateStarterUsers`, `candidateStarterGroups`, `isEagerExecutionFetching`, `potentialStarter`, `historyLevel` |
 | Start event | `initiator`, `formKey`, `formFieldValidation`, `sameDeployment` (`flowable:FormSupported`), `formProperty` with `value` |
 | User task | `assignee`, `owner`, `candidateUsers`, `candidateGroups`, `dueDate`, `businessCalendarName`, `category`, `priority`, `extensionId`, `skipExpression`, `taskIdVariableName`, `taskCompleterVariableName` (`flowable:UserTask`), the form attributes (`flowable:FormSupported`), `customResource` |
+| Service task | `class`, `expression`, `delegateExpression`, `resultVariableName` (and `resultVariable`), `useLocalScopeForResultVariable`, `storeResultVariableAsTransient`, `skipExpression`, `extensionId`, `triggerable`, `type`, http `parallelInSameTransaction`, the case attributes, external worker `topic` and `doNotIncludeVariables` (`flowable:ServiceTask`); `mapException`, `httpRequestHandler` / `httpResponseHandler`, `externalWorkerInParameter` / `externalWorkerOutParameter` |
+| Event registry (send side) | `eventType`, `triggerEventType`, `sendSynchronously`, `eventInParameter`, `eventOutParameter`, `triggerEventCorrelationParameter`, `channelKey`, `systemChannel` |
 | Fields and scripts | `field` with `stringValue`, `expression` (attribute) or `string` / `expression` children (`expressionElement`), `script` |
 
 Listener, field and script attributes are written without a prefix, as Flowable's own exporter writes them; prefixed spellings such as `flowable:class` on a listener are read too.
