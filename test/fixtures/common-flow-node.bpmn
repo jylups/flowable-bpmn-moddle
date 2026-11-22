@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="Definitions_common"
+             targetNamespace="http://flowable.org/bpmn">
+  <process id="commonFlowNode" name="Common flow-node extensions" isExecutable="true">
+    <extensionElements>
+      <flowable:localization locale="es" name="Extensiones comunes">
+        <flowable:documentation>Documentación del proceso</flowable:documentation>
+      </flowable:localization>
+    </extensionElements>
+    <dataObject id="amount" name="amount">
+      <extensionElements>
+        <flowable:localization locale="es" name="importe" />
+      </extensionElements>
+    </dataObject>
+    <startEvent id="start" flowable:async="true" flowable:exclusive="false" />
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="work" />
+    <serviceTask id="work" name="Do work" flowable:async="true" flowable:exclusive="true"
+                 flowable:asyncLeave="true" flowable:asyncLeaveExclusive="false">
+      <extensionElements>
+        <flowable:failedJobRetryTimeCycle>R5/PT7M</flowable:failedJobRetryTimeCycle>
+        <flowable:jobCategory>${jobCategory}</flowable:jobCategory>
+        <flowable:element-name>Do
+work</flowable:element-name>
+        <flowable:includeInHistory>true</flowable:includeInHistory>
+        <flowable:localization locale="de" name="Arbeiten">
+          <flowable:documentation>Erledigt die Arbeit</flowable:documentation>
+        </flowable:localization>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow2" sourceRef="work" targetRef="gateway" />
+    <exclusiveGateway id="gateway" flowable:async="true" flowable:asyncLeave="true" />
+    <sequenceFlow id="flow3" sourceRef="gateway" targetRef="sub" />
+    <subProcess id="sub" flowable:async="true" flowable:exclusive="false">
+      <extensionElements>
+        <flowable:element-name>Sub process</flowable:element-name>
+      </extensionElements>
+      <startEvent id="subStart" />
+      <sequenceFlow id="subFlow" sourceRef="subStart" targetRef="subEnd" />
+      <endEvent id="subEnd" flowable:asyncLeave="false" />
+    </subProcess>
+    <boundaryEvent id="timer" attachedToRef="work" flowable:async="true">
+      <extensionElements>
+        <flowable:jobCategory>timers</flowable:jobCategory>
+      </extensionElements>
+      <timerEventDefinition>
+        <timeDuration>PT1H</timeDuration>
+      </timerEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow4" sourceRef="sub" targetRef="end" />
+    <endEvent id="end">
+      <extensionElements>
+        <flowable:includeInHistory>false</flowable:includeInHistory>
+      </extensionElements>
+    </endEvent>
+  </process>
+</definitions>

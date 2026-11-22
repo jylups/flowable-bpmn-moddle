@@ -20,7 +20,14 @@ const modeler = new BpmnModeler({
 
 The descriptor is also available as `@jylups/flowable-bpmn-moddle/resources/flowable.json`.
 
-The extensions it covers are listed in [docs/flowable-bpmn-extensions.md](https://github.com/jylups/bpmn-js-env/blob/main/docs/flowable-bpmn-extensions.md).
+## Covered extensions
+
+| Area | Extensions |
+|---|---|
+| Flow nodes | `async`, `exclusive`, `asyncLeave`, `asyncLeaveExclusive` (`flowable:AsyncCapable`) |
+| Extension elements | `failedJobRetryTimeCycle`, `element-name`, `jobCategory`, `includeInHistory`, `localization` with `documentation` |
+
+The full list of Flowable extensions, and which ones are covered so far, is in the [coverage matrix](https://github.com/jylups/bpmn-js-env/blob/main/docs/coverage.md). The extensions themselves are listed in [docs/flowable-bpmn-extensions.md](https://github.com/jylups/bpmn-js-env/blob/main/docs/flowable-bpmn-extensions.md).
 
 ## Development
 
