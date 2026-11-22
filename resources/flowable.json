@@ -305,7 +305,8 @@
         "allowedIn": [
           "bpmn:ServiceTask",
           "bpmn:SendTask",
-          "flowable:Listener"
+          "flowable:Listener",
+          "flowable:HttpHandler"
         ]
       },
       "properties": [
@@ -448,7 +449,8 @@
       "isAbstract": true,
       "extends": [
         "bpmn:StartEvent",
-        "bpmn:UserTask"
+        "bpmn:UserTask",
+        "bpmn:ServiceTask"
       ],
       "properties": [
         {
@@ -669,6 +671,416 @@
           "type": "bpmn:ResourceAssignmentExpression"
         }
       ]
+    },
+    {
+      "name": "ServiceTask",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:ServiceTask"
+      ],
+      "properties": [
+        {
+          "name": "class",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "expression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "delegateExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "resultVariableName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "resultVariable",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "useLocalScopeForResultVariable",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "storeResultVariableAsTransient",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "skipExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "extensionId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "triggerable",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "type",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "parallelInSameTransaction",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "caseDefinitionKey",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "caseInstanceName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "businessKey",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "inheritBusinessKey",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "inheritVariables",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "fallbackToDefaultTenant",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "idVariableName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "topic",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "doNotIncludeVariables",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "MapException",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask",
+          "bpmn:CallActivity"
+        ]
+      },
+      "properties": [
+        {
+          "name": "errorCode",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "includeChildExceptions",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "rootCause",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "HttpHandler",
+      "isAbstract": true,
+      "superClass": [
+        "Element"
+      ],
+      "properties": [
+        {
+          "name": "class",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "delegateExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "type",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "fields",
+          "type": "Field",
+          "isMany": true
+        },
+        {
+          "name": "script",
+          "type": "Script"
+        },
+        {
+          "name": "extensionElements",
+          "type": "bpmn:ExtensionElements"
+        }
+      ]
+    },
+    {
+      "name": "HttpRequestHandler",
+      "superClass": [
+        "HttpHandler"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask"
+        ]
+      }
+    },
+    {
+      "name": "HttpResponseHandler",
+      "superClass": [
+        "HttpHandler"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask"
+        ]
+      }
+    },
+    {
+      "name": "IOParameter",
+      "isAbstract": true,
+      "superClass": [
+        "Element"
+      ],
+      "properties": [
+        {
+          "name": "source",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "sourceExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "target",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "targetExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "sourceType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "targetType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "transient",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "ExternalWorkerInParameter",
+      "superClass": [
+        "IOParameter"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask"
+        ]
+      }
+    },
+    {
+      "name": "ExternalWorkerOutParameter",
+      "superClass": [
+        "IOParameter"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask"
+        ]
+      }
+    },
+    {
+      "name": "EventInParameter",
+      "superClass": [
+        "IOParameter"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask"
+        ]
+      }
+    },
+    {
+      "name": "EventOutParameter",
+      "superClass": [
+        "IOParameter"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask",
+          "bpmn:Event",
+          "bpmn:ReceiveTask"
+        ]
+      }
+    },
+    {
+      "name": "EventType",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask",
+          "bpmn:Event",
+          "bpmn:ReceiveTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "TriggerEventType",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "SendSynchronously",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "TriggerEventCorrelationParameter",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "value",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "type",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "ChannelKey",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "SystemChannel",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask"
+        ]
+      }
     }
   ],
   "enumerations": []

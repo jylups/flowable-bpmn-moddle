@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="Definitions_serviceTask"
+             targetNamespace="http://flowable.org/bpmn">
+  <process id="serviceTasks" isExecutable="true">
+    <serviceTask id="javaClass" flowable:class="org.example.Delegate" flowable:resultVariableName="result"
+                 flowable:useLocalScopeForResultVariable="true" flowable:storeResultVariableAsTransient="false"
+                 flowable:skipExpression="${skip}" flowable:extensionId="java-v1" flowable:triggerable="true">
+      <extensionElements>
+        <flowable:field name="text" stringValue="hello" />
+        <flowable:mapException errorCode="validationError" includeChildExceptions="true">org.example.ValidationException</flowable:mapException>
+        <flowable:mapException errorCode="rootError" rootCause="org.example.RootCause">java.lang.RuntimeException</flowable:mapException>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="expressionTask" flowable:expression="${calculator.add(a, b)}" flowable:resultVariable="sum" />
+    <serviceTask id="delegateTask" flowable:delegateExpression="${myDelegate}" flowable:formKey="serviceForm"
+                 flowable:formFieldValidation="true" />
+    <serviceTask id="mail" flowable:type="mail">
+      <extensionElements>
+        <flowable:field name="to" expression="${recipient}" />
+        <flowable:field name="subject">
+          <flowable:string>Hello</flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="http" flowable:type="http" flowable:parallelInSameTransaction="true">
+      <extensionElements>
+        <flowable:field name="requestMethod" stringValue="GET" />
+        <flowable:field name="requestUrl" stringValue="https://example.org/api" />
+        <flowable:httpRequestHandler class="org.example.RequestHandler">
+          <flowable:field name="header" stringValue="X-Test" />
+        </flowable:httpRequestHandler>
+        <flowable:httpResponseHandler type="script">
+          <flowable:script language="groovy">execution.setVariable('ok', true)</flowable:script>
+        </flowable:httpResponseHandler>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="httpNested" flowable:type="http">
+      <extensionElements>
+        <flowable:httpResponseHandler class="org.example.ParametrizedHandler">
+          <extensionElements>
+            <flowable:field name="variableName">
+              <flowable:string>firstName,lastName</flowable:string>
+            </flowable:field>
+          </extensionElements>
+        </flowable:httpResponseHandler>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="caseTask" flowable:type="case" flowable:caseDefinitionKey="claimCase" flowable:caseInstanceName="Claim ${claimId}"
+                 flowable:businessKey="${claimId}" flowable:inheritBusinessKey="false" flowable:inheritVariables="true"
+                 flowable:sameDeployment="true" flowable:fallbackToDefaultTenant="true" flowable:idVariableName="caseId" />
+    <serviceTask id="worker" flowable:type="external-worker" flowable:topic="orders" flowable:doNotIncludeVariables="true"
+                 flowable:exclusive="false">
+      <extensionElements>
+        <flowable:externalWorkerInParameter source="orderId" target="id" />
+        <flowable:externalWorkerOutParameter source="status" target="orderStatus" transient="true" />
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="sendEvent" flowable:type="send-event" flowable:triggerable="true">
+      <extensionElements>
+        <flowable:eventType>orderPlaced</flowable:eventType>
+        <flowable:triggerEventType>orderConfirmed</flowable:triggerEventType>
+        <flowable:sendSynchronously>true</flowable:sendSynchronously>
+        <flowable:eventInParameter sourceExpression="${order.id}" target="orderId" />
+        <flowable:eventOutParameter source="confirmation" target="confirmationId" sourceType="string" />
+        <flowable:triggerEventCorrelationParameter name="orderId" value="${order.id}" />
+        <flowable:channelKey>orders,audit</flowable:channelKey>
+        <flowable:systemChannel />
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="dmn" flowable:type="dmn">
+      <extensionElements>
+        <flowable:field name="decisionTableReferenceKey" stringValue="risk" />
+      </extensionElements>
+    </serviceTask>
+  </process>
+</definitions>
