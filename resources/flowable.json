@@ -150,6 +150,225 @@
           "type": "String"
         }
       ]
+    },
+    {
+      "name": "Listener",
+      "isAbstract": true,
+      "superClass": [
+        "Element"
+      ],
+      "properties": [
+        {
+          "name": "event",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "class",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "expression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "delegateExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "type",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "onTransaction",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "customPropertiesResolverClass",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "customPropertiesResolverExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "customPropertiesResolverDelegateExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "fields",
+          "type": "Field",
+          "isMany": true
+        },
+        {
+          "name": "script",
+          "type": "Script"
+        }
+      ]
+    },
+    {
+      "name": "ExecutionListener",
+      "superClass": [
+        "Listener"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:Process",
+          "bpmn:FlowNode",
+          "bpmn:SequenceFlow"
+        ]
+      }
+    },
+    {
+      "name": "TaskListener",
+      "superClass": [
+        "Listener"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:UserTask"
+        ]
+      }
+    },
+    {
+      "name": "EventListener",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:Process"
+        ]
+      },
+      "properties": [
+        {
+          "name": "events",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "entityType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "class",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "delegateExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "throwEvent",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "signalName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "messageName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "errorCode",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "onTransaction",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Field",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:ServiceTask",
+          "bpmn:SendTask",
+          "flowable:Listener"
+        ]
+      },
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "stringValue",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "expression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "string",
+          "type": "String"
+        },
+        {
+          "name": "expressionElement",
+          "type": "Expression"
+        }
+      ]
+    },
+    {
+      "name": "Expression",
+      "superClass": [
+        "Element"
+      ],
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Script",
+      "superClass": [
+        "Element"
+      ],
+      "properties": [
+        {
+          "name": "language",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "resultVariable",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
     }
   ],
   "enumerations": []

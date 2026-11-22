@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="Definitions_listeners"
+             targetNamespace="http://flowable.org/bpmn">
+  <process id="listeners" name="Listeners, fields and scripts" isExecutable="true">
+    <extensionElements>
+      <flowable:eventListener events="TASK_CREATED,TASK_COMPLETED" entityType="task" class="org.example.TaskEvents" onTransaction="committed" />
+      <flowable:eventListener events="JOB_EXECUTION_FAILURE" throwEvent="signal" signalName="jobFailed" />
+      <flowable:eventListener events="PROCESS_CANCELLED" throwEvent="message" messageName="cancelled" />
+      <flowable:eventListener events="ACTIVITY_ERROR_RECEIVED" throwEvent="error" errorCode="failure" />
+      <flowable:eventListener events="ENTITY_CREATED" delegateExpression="${entityListener}" />
+      <flowable:executionListener event="start" class="org.example.StartListener" onTransaction="before-commit"
+                                  customPropertiesResolverClass="org.example.Resolver">
+        <flowable:field name="plain" stringValue="audit" />
+        <flowable:field name="computed" expression="${auditLevel}" />
+        <flowable:field name="text">
+          <flowable:string>multi
+line</flowable:string>
+        </flowable:field>
+        <flowable:field name="nested">
+          <flowable:expression>${channel.name}</flowable:expression>
+        </flowable:field>
+      </flowable:executionListener>
+      <flowable:executionListener event="end" expression="${audit.end(execution)}"
+                                  customPropertiesResolverExpression="${resolver.resolve(execution)}" />
+    </extensionElements>
+    <startEvent id="start">
+      <extensionElements>
+        <flowable:executionListener event="end" delegateExpression="${startListener}"
+                                    customPropertiesResolverDelegateExpression="${resolverBean}" />
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="toReview" sourceRef="start" targetRef="review">
+      <extensionElements>
+        <flowable:executionListener event="take" type="script">
+          <flowable:script language="groovy" resultVariable="taken">execution.setVariable('taken', true)</flowable:script>
+        </flowable:executionListener>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="review" name="Review">
+      <extensionElements>
+        <flowable:taskListener event="create" class="org.example.Notify">
+          <flowable:field name="template" stringValue="review-created" />
+        </flowable:taskListener>
+        <flowable:taskListener event="assignment" expression="${notify.assigned(task)}" />
+        <flowable:taskListener event="complete" delegateExpression="${completeListener}" onTransaction="committed" />
+        <flowable:taskListener event="delete" type="script">
+          <flowable:script language="javascript">task.setVariable('deleted', true);</flowable:script>
+        </flowable:taskListener>
+        <flowable:taskListener event="all" class="org.example.AllEvents" />
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="toEnd" sourceRef="review" targetRef="end" />
+    <endEvent id="end" />
+  </process>
+</definitions>
