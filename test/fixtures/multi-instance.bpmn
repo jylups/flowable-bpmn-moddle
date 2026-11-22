@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="Definitions_multiInstance"
+             targetNamespace="http://flowable.org/bpmn">
+  <process id="multiInstance" isExecutable="true">
+    <userTask id="review" name="Review">
+      <multiInstanceLoopCharacteristics flowable:collection="${reviewers}"
+                                        flowable:elementVariable="reviewer" flowable:elementIndexVariable="reviewIndex"
+                                        flowable:noWaitStatesAsyncLeave="true">
+        <extensionElements>
+          <flowable:variableAggregation target="reviews" createOverviewVariable="true" storeAsTransientVariable="false">
+            <variable source="approved" target="approved" />
+            <variable sourceExpression="${comment.trim()}" targetExpression="${review.comment}" />
+          </flowable:variableAggregation>
+          <flowable:variableAggregation targetExpression="${summary}" class="org.example.Aggregator" />
+          <flowable:variableAggregation target="custom" delegateExpression="${aggregator}" />
+        </extensionElements>
+        <completionCondition>${nrOfCompletedInstances / nrOfInstances >= 0.6}</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <serviceTask id="byClass" flowable:class="org.example.Notify">
+      <multiInstanceLoopCharacteristics isSequential="true">
+        <extensionElements>
+          <flowable:collection class="org.example.CsvCollectionHandler">
+            <flowable:string>a,b,c</flowable:string>
+          </flowable:collection>
+        </extensionElements>
+      </multiInstanceLoopCharacteristics>
+    </serviceTask>
+    <serviceTask id="byDelegate" flowable:class="org.example.Notify">
+      <multiInstanceLoopCharacteristics isSequential="true">
+        <extensionElements>
+          <flowable:collection delegateExpression="${collectionHandler}">
+            <flowable:expression>${orders.ids}</flowable:expression>
+          </flowable:collection>
+        </extensionElements>
+        <loopCardinality>3</loopCardinality>
+      </multiInstanceLoopCharacteristics>
+    </serviceTask>
+  </process>
+</definitions>
