@@ -2,7 +2,13 @@
 
 Flowable moddle extensions for BPMN 2.0.
 
-> Work in progress. This package is being built in Phase 1 of the Flowable BPMN editor ([jylups/bpmn-js-env#7](https://github.com/jylups/bpmn-js-env/issues/7)). It is not published yet.
+> Prerelease. Built in Phase 1 of the Flowable BPMN editor ([jylups/bpmn-js-env#7](https://github.com/jylups/bpmn-js-env/issues/7)).
+
+## Install
+
+```sh
+npm install @jylups/flowable-bpmn-moddle@next
+```
 
 ## Usage
 
