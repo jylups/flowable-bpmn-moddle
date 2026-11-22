@@ -14,3 +14,5 @@ export {
   migrateActivitiXML,
   useFlowablePrefix
 } from './lib/migrate.js';
+
+export { registerUnknownFlowableElements } from './lib/unknown.js';

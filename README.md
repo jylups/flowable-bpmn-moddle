@@ -44,6 +44,22 @@ const { xml: saved } = await moddle.toXML(useFlowablePrefix(rootElement));
 
 Attributes Flowable reads without a namespace (listener, field, in/out and similar sub-attributes, the sequence flow `skipExpression`) are read whether or not they carry a prefix.
 
+## Unknown Flowable elements
+
+Flowable keeps any extension element it doesn't know, and Flowable Work/Design and users add their own. With the descriptor registered, bpmn-moddle would drop `flowable:*` elements it has no type for. Call `registerUnknownFlowableElements` with the moddle instance before importing, and they are kept and written back unchanged:
+
+```js
+import { registerUnknownFlowableElements } from '@jylups/flowable-bpmn-moddle';
+
+registerUnknownFlowableElements(moddle, xml); // in bpmn-js: modeler.get('moddle')
+
+const { rootElement } = await moddle.fromXML(xml, 'bpmn:Definitions');
+```
+
+The Flowable Work/Design elements seen so far (`work-form-field-validation`, `task-candidates-type`, `static-process-key`, `translation`) are typed.
+
+`itemSubjectRef` is kept as text, because Flowable uses values such as `xsd:string` without declaring an `itemDefinition`.
+
 ## Covered extensions
 
 | Area | Extensions |

@@ -76,6 +76,33 @@ describe('data objects, signals, sequence flows and DI', function() {
   });
 
 
+  describe('itemSubjectRef', function() {
+
+    it('keeps itemSubjectRef as text, so Flowable types like xsd:int survive', async function() {
+
+      // given
+      const moddle = createModdle();
+      const xml = '<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="d" targetNamespace="t">' +
+        '<itemDefinition id="item1" structureRef="xsd:string" />' +
+        '<process id="p"><dataObject id="o" itemSubjectRef="xsd:int" /><property id="pr" itemSubjectRef="item1" /></process>' +
+        '</definitions>';
+
+      // when
+      const { rootElement, warnings } = await moddle.fromXML(xml, 'bpmn:Definitions');
+      const process = rootElement.rootElements[1];
+      const { xml: saved } = await moddle.toXML(rootElement);
+
+      // then
+      expect(warnings).toEqual([]);
+      expect(process.flowElements[0].itemSubjectRef).toBe('xsd:int');
+      expect(process.properties[0].itemSubjectRef).toBe('item1');
+      expect(saved).toContain('<dataObject id="o" itemSubjectRef="xsd:int" />');
+      expect(saved).toContain('<property id="pr" itemSubjectRef="item1" />');
+    });
+
+  });
+
+
   describe('roundtrip', function() {
 
     it('writes the fixture back without changes', async function() {
