@@ -6,6 +6,151 @@
     "tagAlias": "lowerCase"
   },
   "associations": [],
-  "types": [],
+  "types": [
+    {
+      "name": "AsyncCapable",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:FlowNode"
+      ],
+      "properties": [
+        {
+          "name": "async",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "exclusive",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "asyncLeave",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "asyncLeaveExclusive",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "FailedJobRetryTimeCycle",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:Activity"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Element-name",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:FlowElement"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "JobCategory",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:FlowNode",
+          "bpmn:TimerEventDefinition"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "IncludeInHistory",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:FlowElement"
+        ]
+      },
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Localization",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:Process",
+          "bpmn:FlowElement",
+          "bpmn:DataObject"
+        ]
+      },
+      "properties": [
+        {
+          "name": "locale",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "documentation",
+          "type": "Documentation"
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "superClass": [
+        "Element"
+      ],
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    }
+  ],
   "enumerations": []
 }
