@@ -447,7 +447,8 @@
       "name": "FormSupported",
       "isAbstract": true,
       "extends": [
-        "bpmn:StartEvent"
+        "bpmn:StartEvent",
+        "bpmn:UserTask"
       ],
       "properties": [
         {
@@ -575,6 +576,97 @@
           "name": "expression",
           "type": "bpmn:Expression",
           "replaces": "bpmn:ResourceAssignmentExpression#expression"
+        }
+      ]
+    },
+    {
+      "name": "UserTask",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:UserTask"
+      ],
+      "properties": [
+        {
+          "name": "assignee",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "owner",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "candidateUsers",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "candidateGroups",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "dueDate",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "businessCalendarName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "category",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "priority",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "extensionId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "skipExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "taskIdVariableName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "taskCompleterVariableName",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "CustomResource",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:UserTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "name",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "resourceAssignmentExpression",
+          "type": "bpmn:ResourceAssignmentExpression"
         }
       ]
     }

@@ -4,6 +4,7 @@ All notable changes to this package are documented here.
 
 ## Unreleased
 
+* `FEAT`: add the user task extensions (`assignee`, `owner`, `candidateUsers`, `candidateGroups`, `dueDate`, `businessCalendarName`, `category`, `priority`, `extensionId`, `skipExpression`, `taskIdVariableName`, `taskCompleterVariableName`), the form attributes on user tasks and `customResource` ([jylups/bpmn-js-env#11](https://github.com/jylups/bpmn-js-env/issues/11))
 * `FEAT`: add the process extensions (`candidateStarterUsers`, `candidateStarterGroups`, `isEagerExecutionFetching`, `potentialStarter`, `historyLevel`) and the start event extensions (`initiator`, `formKey`, `formFieldValidation`, `sameDeployment`, `formProperty` with `value`) ([jylups/bpmn-js-env#10](https://github.com/jylups/bpmn-js-env/issues/10))
 * `FIX`: write resource assignments (`potentialOwner`, `humanPerformer`, `potentialStarter`) with a `<formalExpression>` child instead of `<expression xsi:type="tFormalExpression">`, which Flowable does not read ([jylups/bpmn-js-env#10](https://github.com/jylups/bpmn-js-env/issues/10))
 * `FEAT`: add execution, task and event listeners, fields (`stringValue` and `expression` attributes, `string` and `expression` children) and scripts ([jylups/bpmn-js-env#9](https://github.com/jylups/bpmn-js-env/issues/9))
