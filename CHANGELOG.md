@@ -4,6 +4,7 @@ All notable changes to this package are documented here.
 
 ## Unreleased
 
+* `FEAT`: add `migrateActivitiXML` and `useFlowablePrefix` to import models written with the Activiti namespace as typed Flowable content and write them as `flowable:` ([jylups/bpmn-js-env#18](https://github.com/jylups/bpmn-js-env/issues/18))
 * `FEAT`: add the signal `scope` and the sequence flow `skipExpression` (also read when written unprefixed, as Flowable does) ([jylups/bpmn-js-env#17](https://github.com/jylups/bpmn-js-env/issues/17))
 * `FEAT`: add the event definition extensions (timer `businessCalendarName` and `timeCycle` `endDate`, signal `signalExpression` and `async`, message `messageExpression`, error variables, terminate `terminateAll` and `terminateMultiInstance`), `variableListenerEventDefinition` and the catch-side event registry elements (`eventName`, `eventCorrelationParameter`, `startEventCorrelationConfiguration`) ([jylups/bpmn-js-env#16](https://github.com/jylups/bpmn-js-env/issues/16))
 * `FEAT`: add the multi-instance extensions (`collection`, `elementVariable`, `elementIndexVariable`, `noWaitStatesAsyncLeave`), the `collection` handler element and `variableAggregation` with its `variable` children, read with or without a prefix and written unprefixed as Flowable does ([jylups/bpmn-js-env#15](https://github.com/jylups/bpmn-js-env/issues/15))

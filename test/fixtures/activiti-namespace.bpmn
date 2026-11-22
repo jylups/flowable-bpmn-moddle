@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:activiti="http://activiti.org/bpmn"
+             id="Definitions_activiti"
+             targetNamespace="http://activiti.org/bpmn">
+  <process id="legacy" isExecutable="true" activiti:candidateStarterGroups="employees">
+    <extensionElements>
+      <activiti:executionListener event="start" class="org.example.StartListener">
+        <activiti:field name="channel" stringValue="audit" />
+      </activiti:executionListener>
+    </extensionElements>
+    <startEvent id="start" activiti:initiator="employee" activiti:formKey="startForm" />
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="review" />
+    <userTask id="review" activiti:assignee="${initiator}" activiti:candidateGroups="management" activiti:async="true">
+      <extensionElements>
+        <activiti:taskListener event="create" class="org.example.Notify" />
+        <activiti:failedJobRetryTimeCycle>R3/PT10M</activiti:failedJobRetryTimeCycle>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="review" targetRef="call" />
+    <callActivity id="call" calledElement="child" activiti:inheritVariables="true">
+      <extensionElements>
+        <activiti:in source="a" target="b" />
+        <activiti:out source="c" target="d" />
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow3" sourceRef="call" targetRef="end" />
+    <endEvent id="end" />
+  </process>
+</definitions>
