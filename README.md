@@ -34,6 +34,8 @@ The descriptor is also available as `@jylups/flowable-bpmn-moddle/resources/flow
 | Script task | `resultVariable`, `resultVariableName`, `autoStoreVariables`, `doNotIncludeVariables`, `skipExpression` |
 | Business rule task | `ruleVariablesInput`, `rules`, `resultVariable`, `class`, `exclude` |
 | Send and receive tasks | send task `type` (with `field`), receive task `skipExpression` |
+| Call activity | `calledElementType`, `processInstanceName`, `businessKey`, `inheritBusinessKey`, `inheritVariables`, `sameDeployment`, `calledElementBinding`, `useLocalScopeForOutParameters`, `completeAsync`, `fallbackToDefaultTenant`, `idVariableName` |
+| In/out parameters | `in` and `out` (on `flowable:IOParameter`: `source`, `sourceExpression`, `target`, `targetExpression`, `sourceType`, `targetType`, `transient`; plus `variables`, `local`, `businessKey`) on call activities, start events, script tasks, case tasks and events |
 | Event registry (send side) | `eventType`, `triggerEventType`, `sendSynchronously`, `eventInParameter`, `eventOutParameter`, `triggerEventCorrelationParameter`, `channelKey`, `systemChannel` |
 | Fields and scripts | `field` with `stringValue`, `expression` (attribute) or `string` / `expression` children (`expressionElement`), `script` |
 

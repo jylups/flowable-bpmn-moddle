@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="Definitions_callActivity"
+             targetNamespace="http://flowable.org/bpmn">
+  <process id="parent" isExecutable="true">
+    <startEvent id="start">
+      <extensionElements>
+        <flowable:in source="initialAmount" target="amount" />
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="callChild" />
+    <callActivity id="callChild" calledElement="child" flowable:calledElementType="key"
+                  flowable:processInstanceName="Child of ${parentName}" flowable:businessKey="${orderId}"
+                  flowable:inheritBusinessKey="false" flowable:inheritVariables="true" flowable:sameDeployment="true"
+                  flowable:useLocalScopeForOutParameters="true" flowable:completeAsync="true"
+                  flowable:fallbackToDefaultTenant="true" flowable:idVariableName="childId">
+      <extensionElements>
+        <flowable:in source="customer" target="client" />
+        <flowable:in sourceExpression="${order.total * 2}" target="doubled" targetType="long" />
+        <flowable:in source="secret" target="secret" transient="true" />
+        <flowable:out source="result" target="childResult" />
+        <flowable:out sourceExpression="${status}" targetExpression="${outcome.status}" sourceType="string" />
+        <flowable:mapException errorCode="childFailed">org.example.ChildException</flowable:mapException>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow2" sourceRef="callChild" targetRef="legacyCall" />
+    <callActivity id="legacyCall" calledElement="${childKey}" flowable:calledElementType="id"
+                  flowable:calledElementBinding="deployment">
+      <extensionElements>
+        <flowable:in variables="all" />
+        <flowable:in businessKey="${parentKey}" />
+        <flowable:out variables="all" local="true" />
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow3" sourceRef="legacyCall" targetRef="script" />
+    <scriptTask id="script" scriptFormat="groovy">
+      <extensionElements>
+        <flowable:in source="x" target="y" />
+      </extensionElements>
+      <script>y + 1</script>
+    </scriptTask>
+    <sequenceFlow id="flow4" sourceRef="script" targetRef="end" />
+    <endEvent id="end">
+      <extensionElements>
+        <flowable:out source="childResult" target="parentResult" />
+      </extensionElements>
+    </endEvent>
+  </process>
+</definitions>
