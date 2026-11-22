@@ -31,6 +31,9 @@ The descriptor is also available as `@jylups/flowable-bpmn-moddle/resources/flow
 | Start event | `initiator`, `formKey`, `formFieldValidation`, `sameDeployment` (`flowable:FormSupported`), `formProperty` with `value` |
 | User task | `assignee`, `owner`, `candidateUsers`, `candidateGroups`, `dueDate`, `businessCalendarName`, `category`, `priority`, `extensionId`, `skipExpression`, `taskIdVariableName`, `taskCompleterVariableName` (`flowable:UserTask`), the form attributes (`flowable:FormSupported`), `customResource` |
 | Service task | `class`, `expression`, `delegateExpression`, `resultVariableName` (and `resultVariable`), `useLocalScopeForResultVariable`, `storeResultVariableAsTransient`, `skipExpression`, `extensionId`, `triggerable`, `type`, http `parallelInSameTransaction`, the case attributes, external worker `topic` and `doNotIncludeVariables` (`flowable:ServiceTask`); `mapException`, `httpRequestHandler` / `httpResponseHandler`, `externalWorkerInParameter` / `externalWorkerOutParameter` |
+| Script task | `resultVariable`, `resultVariableName`, `autoStoreVariables`, `doNotIncludeVariables`, `skipExpression` |
+| Business rule task | `ruleVariablesInput`, `rules`, `resultVariable`, `class`, `exclude` |
+| Send and receive tasks | send task `type` (with `field`), receive task `skipExpression` |
 | Event registry (send side) | `eventType`, `triggerEventType`, `sendSynchronously`, `eventInParameter`, `eventOutParameter`, `triggerEventCorrelationParameter`, `channelKey`, `systemChannel` |
 | Fields and scripts | `field` with `stringValue`, `expression` (attribute) or `string` / `expression` children (`expressionElement`), `script` |
 

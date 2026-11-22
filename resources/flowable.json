@@ -1081,6 +1081,102 @@
           "bpmn:ServiceTask"
         ]
       }
+    },
+    {
+      "name": "ScriptTask",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:ScriptTask"
+      ],
+      "properties": [
+        {
+          "name": "resultVariable",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "resultVariableName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "autoStoreVariables",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "doNotIncludeVariables",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "skipExpression",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "BusinessRuleTask",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:BusinessRuleTask"
+      ],
+      "properties": [
+        {
+          "name": "ruleVariablesInput",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "rules",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "resultVariable",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "class",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "exclude",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "SendTask",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:SendTask"
+      ],
+      "properties": [
+        {
+          "name": "type",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "ReceiveTask",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:ReceiveTask"
+      ],
+      "properties": [
+        {
+          "name": "skipExpression",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
     }
   ],
   "enumerations": []
