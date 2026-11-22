@@ -26,6 +26,10 @@ The descriptor is also available as `@jylups/flowable-bpmn-moddle/resources/flow
 |---|---|
 | Flow nodes | `async`, `exclusive`, `asyncLeave`, `asyncLeaveExclusive` (`flowable:AsyncCapable`) |
 | Extension elements | `failedJobRetryTimeCycle`, `element-name`, `jobCategory`, `includeInHistory`, `localization` with `documentation` |
+| Listeners | `executionListener`, `taskListener` (shared `flowable:Listener`), `eventListener` |
+| Fields and scripts | `field` with `stringValue`, `expression` (attribute) or `string` / `expression` children (`expressionElement`), `script` |
+
+Listener, field and script attributes are written without a prefix, as Flowable's own exporter writes them; prefixed spellings such as `flowable:class` on a listener are read too.
 
 The full list of Flowable extensions, and which ones are covered so far, is in the [coverage matrix](https://github.com/jylups/bpmn-js-env/blob/main/docs/coverage.md). The extensions themselves are listed in [docs/flowable-bpmn-extensions.md](https://github.com/jylups/bpmn-js-env/blob/main/docs/flowable-bpmn-extensions.md).
 
