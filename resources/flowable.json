@@ -1177,6 +1177,129 @@
           "type": "String"
         }
       ]
+    },
+    {
+      "name": "CallActivity",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:CallActivity"
+      ],
+      "properties": [
+        {
+          "name": "calledElementType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "processInstanceName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "businessKey",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "inheritBusinessKey",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "inheritVariables",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "sameDeployment",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "calledElementBinding",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "useLocalScopeForOutParameters",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "completeAsync",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "fallbackToDefaultTenant",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "idVariableName",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "In",
+      "superClass": [
+        "IOParameter"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:CallActivity",
+          "bpmn:StartEvent",
+          "bpmn:ScriptTask",
+          "bpmn:ServiceTask",
+          "bpmn:BoundaryEvent",
+          "bpmn:IntermediateCatchEvent"
+        ]
+      },
+      "properties": [
+        {
+          "name": "variables",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "local",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "businessKey",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Out",
+      "superClass": [
+        "IOParameter"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:CallActivity",
+          "bpmn:ServiceTask",
+          "bpmn:EndEvent",
+          "bpmn:IntermediateThrowEvent"
+        ]
+      },
+      "properties": [
+        {
+          "name": "variables",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "local",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
     }
   ],
   "enumerations": []
