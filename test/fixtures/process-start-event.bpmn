@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="Definitions_processStart"
+             targetNamespace="http://flowable.org/bpmn">
+  <process id="vacation" name="Vacation request" isExecutable="true"
+           flowable:candidateStarterUsers="kermit,gonzo" flowable:candidateStarterGroups="employees"
+           flowable:isEagerExecutionFetching="true">
+    <extensionElements>
+      <flowable:potentialStarter>
+        <resourceAssignmentExpression>
+          <formalExpression>user(fozzie), group(management)</formalExpression>
+        </resourceAssignmentExpression>
+      </flowable:potentialStarter>
+      <flowable:historyLevel>audit</flowable:historyLevel>
+    </extensionElements>
+    <startEvent id="request" name="Request" flowable:initiator="employee" flowable:formKey="vacationRequest"
+                flowable:formFieldValidation="${validateForms}" flowable:sameDeployment="false">
+      <extensionElements>
+        <flowable:formProperty id="days" name="Number of days" type="long" variable="numberOfDays" required="true" />
+        <flowable:formProperty id="startDate" name="First day" type="date" datePattern="dd-MM-yyyy"
+                               lenientDateParsing="true" readable="true" writable="true" />
+        <flowable:formProperty id="motivation" name="Motivation" type="string" default="Rest" expression="${motivation}"
+                               writable="false" />
+        <flowable:formProperty id="kind" name="Kind" type="enum">
+          <flowable:value id="paid" name="Paid leave" />
+          <flowable:value id="unpaid" name="Unpaid leave" />
+        </flowable:formProperty>
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="toApprove" sourceRef="request" targetRef="approve" />
+    <userTask id="approve" name="Approve">
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(kermit), group(management)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <sequenceFlow id="toEnd" sourceRef="approve" targetRef="end" />
+    <endEvent id="end" />
+  </process>
+  <process id="minimal" isExecutable="true">
+    <startEvent id="plainStart" flowable:formFieldValidation="true" />
+  </process>
+</definitions>
