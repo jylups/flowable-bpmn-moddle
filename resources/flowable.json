@@ -1300,6 +1300,145 @@
           "type": "Boolean"
         }
       ]
+    },
+    {
+      "name": "MultiInstanceLoopCharacteristics",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:MultiInstanceLoopCharacteristics"
+      ],
+      "properties": [
+        {
+          "name": "collection",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "elementVariable",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "elementIndexVariable",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "noWaitStatesAsyncLeave",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "Collection",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:MultiInstanceLoopCharacteristics"
+        ]
+      },
+      "properties": [
+        {
+          "name": "class",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "delegateExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "string",
+          "type": "String"
+        },
+        {
+          "name": "expression",
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "VariableAggregation",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:MultiInstanceLoopCharacteristics"
+        ]
+      },
+      "properties": [
+        {
+          "name": "target",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "targetExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "storeAsTransientVariable",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "createOverviewVariable",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "class",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "delegateExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "bpmn:variable",
+          "type": "flowable:Variable",
+          "isMany": true,
+          "xml": {
+            "serialize": "property"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Variable",
+      "superClass": [
+        "Element"
+      ],
+      "properties": [
+        {
+          "name": "source",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "sourceExpression",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "target",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "targetExpression",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
     }
   ],
   "enumerations": []
