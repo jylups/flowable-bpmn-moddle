@@ -1638,6 +1638,34 @@
           "type": "String"
         }
       ]
+    },
+    {
+      "name": "Signal",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:Signal"
+      ],
+      "properties": [
+        {
+          "name": "scope",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "SequenceFlow",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:SequenceFlow"
+      ],
+      "properties": [
+        {
+          "name": "skipExpression",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
     }
   ],
   "enumerations": []

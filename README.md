@@ -39,11 +39,14 @@ The descriptor is also available as `@jylups/flowable-bpmn-moddle/resources/flow
 | Multi-instance | `collection`, `elementVariable`, `elementIndexVariable`, `noWaitStatesAsyncLeave`; the `collection` handler (`class` / `delegateExpression` with `string` / `expression`); `variableAggregation` with `variable` children |
 | Event definitions | timer `businessCalendarName`, `timeCycle` `endDate`, signal `signalExpression` and `async`, message `messageExpression`, error `errorVariableName` / `errorVariableTransient` / `errorVariableLocalScope`, terminate `terminateAll` / `terminateMultiInstance`, `variableListenerEventDefinition` |
 | Event registry | `eventType`, `eventName`, `eventCorrelationParameter`, `eventInParameter`, `eventOutParameter`, `startEventCorrelationConfiguration`, `triggerEventType`, `sendSynchronously`, `triggerEventCorrelationParameter`, `channelKey`, `systemChannel` |
+| Data objects, signals, sequence flows | data object `value` (`flowable:Value`), signal `scope`, sequence flow `skipExpression` |
 | Fields and scripts | `field` with `stringValue`, `expression` (attribute) or `string` / `expression` children (`expressionElement`), `script` |
 
 Listener, field and script attributes are written without a prefix, as Flowable's own exporter writes them; prefixed spellings such as `flowable:class` on a listener are read too.
 
 With the descriptor registered, a `resourceAssignmentExpression` (in `potentialOwner`, `humanPerformer` and `flowable:potentialStarter`) is written with a `<formalExpression>` child, as Flowable expects, instead of bpmn-moddle's `<expression xsi:type="tFormalExpression">`.
+
+The diagram interchange attributes Flowable writes (`sourceDockerX`/`Y` and `targetDockerX`/`Y` on `BPMNEdge`, `rotation` on `BPMNLabel`) are kept as unknown attributes and written back unchanged. They are not typed, because extending `bpmndi:BPMNEdge` or `bpmndi:BPMNLabel` from this package would make moddle write those tags as `bPMNEdge` / `bPMNLabel`.
 
 The full list of Flowable extensions, and which ones are covered so far, is in the [coverage matrix](https://github.com/jylups/bpmn-js-env/blob/main/docs/coverage.md). The extensions themselves are listed in [docs/flowable-bpmn-extensions.md](https://github.com/jylups/bpmn-js-env/blob/main/docs/flowable-bpmn-extensions.md).
 
