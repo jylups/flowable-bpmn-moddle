@@ -4,6 +4,7 @@
              xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
              xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
              xmlns:flowable="http://flowable.org/bpmn"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              id="Definitions_dataSignalsFlows"
              targetNamespace="http://flowable.org/bpmn">
   <signal id="globalSignal" name="global" flowable:scope="global" />
@@ -17,7 +18,15 @@
     <startEvent id="start" />
     <sequenceFlow id="toCheck" sourceRef="start" targetRef="check" flowable:skipExpression="${skipCheck}" />
     <exclusiveGateway id="check" />
-    <sequenceFlow id="toEnd" sourceRef="check" targetRef="end" />
+    <sequenceFlow id="toEnd" sourceRef="check" targetRef="end">
+      <extensionElements>
+        <flowable:condition group="true" match="all" targetAttribute="condition">
+          <flowable:condition sourceVariableType="variable" sourceName="eligibility" sourceType="string" operator="equals"
+                              targetVariableType="value" targetValue="REVIEW" targetType="string"></flowable:condition>
+        </flowable:condition>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vars:equals(eligibility, 'REVIEW')}]]></conditionExpression>
+    </sequenceFlow>
     <endEvent id="end" />
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">

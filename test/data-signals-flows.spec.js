@@ -16,17 +16,13 @@ describe('data objects, signals, sequence flows and DI', function() {
   const element = id => findElement(definitions, id);
 
 
-  it('reads with warnings only for the untyped DI attributes', function() {
+  it('reads with a warning only for the untyped label rotation', function() {
 
-    // the docker and rotation attributes stay generic: typing them through an
-    // extension of bpmndi:BPMNEdge / BPMNLabel would make moddle write the tags
-    // as bPMNEdge / bPMNLabel (lowerCase tag alias of this package)
-    expect(warnings.map(w => w.message).sort()).toEqual([
-      'unknown attribute <flowable:rotation>',
-      'unknown attribute <flowable:sourceDockerX>',
-      'unknown attribute <flowable:sourceDockerY>',
-      'unknown attribute <flowable:targetDockerX>',
-      'unknown attribute <flowable:targetDockerY>'
+    // rotation stays generic: typing it through an extension of
+    // bpmndi:BPMNLabel would make moddle write the tag as bPMNLabel
+    // (lowerCase tag alias of this package)
+    expect(warnings.map(w => w.message)).toEqual([
+      'unknown attribute <flowable:rotation>'
     ]);
   });
 
@@ -65,14 +61,70 @@ describe('data objects, signals, sequence flows and DI', function() {
   });
 
 
-  it('keeps the DI docker and rotation attributes without typing them', function() {
+  it('reads the Flowable Design condition builder on sequence flows', function() {
+
+    // when
+    const [ group ] = extensionsOfType(element('toEnd'), 'flowable:Condition');
+    const [ condition ] = group.conditions;
+
+    // then
+    expect(group.group).toBe(true);
+    expect(group.match).toBe('all');
+    expect(group.targetAttribute).toBe('condition');
+    expect(group.conditions).toHaveLength(1);
+    expect(condition.$type).toBe('flowable:Condition');
+    expect(condition.sourceVariableType).toBe('variable');
+    expect(condition.sourceName).toBe('eligibility');
+    expect(condition.sourceType).toBe('string');
+    expect(condition.operator).toBe('equals');
+    expect(condition.targetVariableType).toBe('value');
+    expect(condition.targetValue).toBe('REVIEW');
+    expect(condition.targetType).toBe('string');
+  });
+
+
+  it('reads the edge docker attributes as written', function() {
 
     // when
     const edge = definitions.diagrams[0].plane.planeElement.find(e => e.id === 'toCheck_di');
 
     // then
-    expect(edge.$attrs['flowable:sourceDockerX']).toBe('18.0');
+    // typed through di:LabeledEdge: extending bpmndi:BPMNEdge itself would make
+    // moddle write the tag as bPMNEdge (lowerCase tag alias of this package)
+    expect(edge.sourceDockerX).toBe('18.0');
+    expect(edge.sourceDockerY).toBe('18.0');
+    expect(edge.targetDockerX).toBe('25.0');
+    expect(edge.targetDockerY).toBe('25.0');
+    expect(edge.$attrs).toEqual({});
+  });
+
+
+  it('keeps the label rotation attribute without typing it', function() {
+
+    // when
+    const edge = definitions.diagrams[0].plane.planeElement.find(e => e.id === 'toCheck_di');
+
+    // then
     expect(edge.label.$attrs['flowable:rotation']).toBe('90.0');
+  });
+
+
+  it('writes the edge docker attributes of a new edge', async function() {
+
+    // given
+    const moddle = createModdle();
+    const edge = moddle.create('bpmndi:BPMNEdge', {
+      id: 'e_di',
+      sourceDockerX: '50.0',
+      targetDockerY: '20.0'
+    });
+
+    // when
+    const { xml } = await moddle.toXML(edge);
+
+    // then
+    expect(xml).toContain('<bpmndi:BPMNEdge xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" ' +
+      'xmlns:flowable="http://flowable.org/bpmn" id="e_di" flowable:sourceDockerX="50.0" flowable:targetDockerY="20.0" />');
   });
 
 
