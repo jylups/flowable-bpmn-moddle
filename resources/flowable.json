@@ -1751,6 +1751,103 @@
       ]
     },
     {
+      "name": "Condition",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:BaseElement"
+        ]
+      },
+      "properties": [
+        {
+          "name": "group",
+          "isAttr": true,
+          "type": "Boolean"
+        },
+        {
+          "name": "match",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "targetAttribute",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "sourceVariableType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "sourceName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "sourceType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "operator",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "targetVariableType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "targetValue",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "targetType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "conditions",
+          "type": "Condition",
+          "isMany": true
+        }
+      ]
+    },
+    {
+      "name": "EdgeDockers",
+      "isAbstract": true,
+      "extends": [
+        "di:LabeledEdge"
+      ],
+      "properties": [
+        {
+          "name": "sourceDockerX",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "sourceDockerY",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "targetDockerX",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "targetDockerY",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
       "name": "ItemAwareElement",
       "isAbstract": true,
       "extends": [

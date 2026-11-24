@@ -56,7 +56,7 @@ registerUnknownFlowableElements(moddle, xml); // in bpmn-js: modeler.get('moddle
 const { rootElement } = await moddle.fromXML(xml, 'bpmn:Definitions');
 ```
 
-The Flowable Work/Design elements seen so far (`work-form-field-validation`, `task-candidates-type`, `static-process-key`, `translation`) are typed.
+The Flowable Work/Design elements seen so far (`work-form-field-validation`, `task-candidates-type`, `static-process-key`, `translation`, and the condition builder `condition` with its nested conditions) are typed.
 
 `itemSubjectRef` is kept as text, because Flowable uses values such as `xsd:string` without declaring an `itemDefinition`.
 
@@ -86,7 +86,7 @@ Listener, field and script attributes are written without a prefix, as Flowable'
 
 With the descriptor registered, a `resourceAssignmentExpression` (in `potentialOwner`, `humanPerformer` and `flowable:potentialStarter`) is written with a `<formalExpression>` child, as Flowable expects, instead of bpmn-moddle's `<expression xsi:type="tFormalExpression">`.
 
-The diagram interchange attributes Flowable writes (`sourceDockerX`/`Y` and `targetDockerX`/`Y` on `BPMNEdge`, `rotation` on `BPMNLabel`) are kept as unknown attributes and written back unchanged. They are not typed, because extending `bpmndi:BPMNEdge` or `bpmndi:BPMNLabel` from this package would make moddle write those tags as `bPMNEdge` / `bPMNLabel`.
+The docker attributes Flowable writes on `BPMNEdge` (`sourceDockerX`/`Y` and `targetDockerX`/`Y`) are typed as text, so a value such as `50.0` is written back as written. They are defined on `di:LabeledEdge`, the supertype of `bpmndi:BPMNEdge`: extending `bpmndi:BPMNEdge` itself from this package would make moddle write the tag as `bPMNEdge`. `rotation` on `BPMNLabel` is still kept as an unknown attribute and written back unchanged.
 
 The full list of Flowable extensions, and which ones are covered so far, is in the [coverage matrix](https://github.com/jylups/bpmn-js-env/blob/main/docs/coverage.md). The extensions themselves are listed in [docs/flowable-bpmn-extensions.md](https://github.com/jylups/bpmn-js-env/blob/main/docs/flowable-bpmn-extensions.md).
 
