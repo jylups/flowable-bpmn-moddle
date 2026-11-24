@@ -4,6 +4,8 @@ All notable changes to this package are documented here.
 
 ## Unreleased
 
+## 0.1.1
+
 * `FEAT`: type the edge docker attributes (`sourceDockerX`/`Y`, `targetDockerX`/`Y`) and the Flowable Design condition builder `condition` (`group`, `match`, `targetAttribute`, `sourceVariableType`, `sourceName`, `sourceType`, `operator`, `targetVariableType`, `targetValue`, `targetType` and nested conditions), so models exported from Flowable Design import without unknown-attribute warnings ([jylups/bpmn-js-env#101](https://github.com/jylups/bpmn-js-env/issues/101))
 
 ## 0.1.0
